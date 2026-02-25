@@ -1,5 +1,5 @@
 @extends("admin.layout")
-@section("title", "新增最新消息類別")
+@section("title", "修改最新消息類別")
 @section("content")
 <div class="row">
     <div class="col-12">
@@ -11,8 +11,9 @@
                     </div>
                 </div>
             </div>
-            <form name="list" id="list" method="post" action="add">
+            <form name="list" id="list" method="post" action="../edit">
                 @csrf
+                <input type="hidden" name="id" value="{{ $types->id }}">
                 <table class="table table-order border border-dark">
                     <tr class="table-warning">
                         <td class="col-2 text-center border border-dark">類別名稱</td>

@@ -6,6 +6,8 @@
     <title>後台管理系統</title>
 
     <link rel="stylesheet" href="/css/bootstrap5.2.3.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.20/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.20/dist/sweetalert2.min.css" rel="stylesheet">
 
     <style>
         * {
@@ -287,6 +289,12 @@
 </head>
 <body>
     <div class="container2">
+        @if(Session::has("message"))
+            <script>
+                Swal.fire("{{ Session::get('message') }}");
+            </script>
+        @endif
+
         <!-- 左側選單 -->
         @include("admin.menu")
 
