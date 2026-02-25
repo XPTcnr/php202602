@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" onclick="loadContent('news-management', this)">
+                        <a class="menu-link" href="/admin/news/list">
                             <span class="menu-icon">📝</span>
                             <span>最新消息管理</span>
                         </a>

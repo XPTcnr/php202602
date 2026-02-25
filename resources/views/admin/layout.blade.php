@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.20/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.20/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    <link href="/css/lightbox.min.css" rel="stylesheet">
+    <script src="/js/lightbox.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -84,7 +86,7 @@
         }
 
         .menu-link.active {
-            background: rgba(52, 152, 219, 0.3);
+            background: rgba(254, 254, 254, 0.3);
             border-left: 4px solid #3498db;
             padding-left: 16px;
         }
@@ -349,7 +351,7 @@
         function toggleSubmenu(element) {
             const submenu = element.nextElementSibling;
             const expandIcon = element.querySelector('.expand-icon');
-
+            
             if (submenu && submenu.classList.contains('submenu')) {
                 submenu.classList.toggle('show');
                 expandIcon.classList.toggle('expanded');
