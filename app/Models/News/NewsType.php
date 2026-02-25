@@ -9,5 +9,5 @@ class NewsType extends Model
     public $timestamps = false;
     protected $table = "news_type";
     protected $primaryKey = 'id';
-    protected $fillable = ["id", "TypeName"];
+    protected $fillable = ["id", "typeName"];
 }

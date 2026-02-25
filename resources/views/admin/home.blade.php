@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>後台管理系統</title>
+    
+    <!-- Bootstrap 5.2.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -18,7 +22,7 @@
             overflow: hidden;
         }
 
-        .container {
+        .admin-container {
             display: flex;
             height: 100vh;
         }
@@ -242,7 +246,7 @@
             font-weight: 700;
         }
 
-        .btn {
+        .custom-btn {
             padding: 10px 20px;
             border: none;
             border-radius: 6px;
@@ -252,15 +256,34 @@
             transition: all 0.3s ease;
         }
 
-        .btn-primary {
+        .custom-btn-primary {
             background: #3498db;
             color: white;
         }
 
-        .btn-primary:hover {
+        .custom-btn-primary:hover {
             background: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        .custom-btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .custom-btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .custom-btn-info {
+            background: #3498db;
+            color: white;
+        }
+        
+        .custom-btn-sm {
+            padding: 6px 12px;
         }
 
         /* 滾動條樣式 */
@@ -283,7 +306,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="admin-container">
         <!-- 左側選單 -->
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -374,8 +397,8 @@
                     <h2>快速操作</h2>
                     <p>您可以從這裡快速執行常用操作。</p>
                     <div style="margin-top: 15px;">
-                        <button class="btn btn-primary">新增最新消息</button>
-                        <button class="btn btn-primary" style="margin-left: 10px;">新增產品</button>
+                        <button class="custom-btn custom-btn-primary">新增最新消息</button>
+                        <button class="custom-btn custom-btn-primary" style="margin-left: 10px;">新增產品</button>
                     </div>
                 </div>
             </section>
@@ -421,28 +444,28 @@
                             <h2>最新消息類別管理</h2>
                             <p>在這裡您可以管理所有最新消息的類別，包括新增、編輯和刪除類別。</p>
                             <div style="margin-top: 20px;">
-                                <button class="btn btn-primary">+ 新增類別</button>
+                                <button class="custom-btn custom-btn-primary">+ 新增類別</button>
                             </div>
                             <div style="margin-top: 25px; background: #f8f9fa; padding: 20px; border-radius: 8px;">
                                 <div style="display: flex; justify-content: space-between; padding: 12px; background: white; margin-bottom: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                     <span><strong>公司公告</strong></span>
                                     <div>
-                                        <button class="btn" style="background: #f39c12; color: white; margin-right: 5px;">編輯</button>
-                                        <button class="btn" style="background: #e74c3c; color: white;">刪除</button>
+                                        <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                        <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; padding: 12px; background: white; margin-bottom: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                     <span><strong>活動訊息</strong></span>
                                     <div>
-                                        <button class="btn" style="background: #f39c12; color: white; margin-right: 5px;">編輯</button>
-                                        <button class="btn" style="background: #e74c3c; color: white;">刪除</button>
+                                        <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                        <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; padding: 12px; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                     <span><strong>產業新聞</strong></span>
                                     <div>
-                                        <button class="btn" style="background: #f39c12; color: white; margin-right: 5px;">編輯</button>
-                                        <button class="btn" style="background: #e74c3c; color: white;">刪除</button>
+                                        <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                        <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                     </div>
                                 </div>
                             </div>
@@ -458,7 +481,7 @@
                             <h2>最新消息管理</h2>
                             <p>管理所有最新消息內容，包括發布、編輯和刪除消息。</p>
                             <div style="margin-top: 20px;">
-                                <button class="btn btn-primary">+ 發布新消息</button>
+                                <button class="custom-btn custom-btn-primary">+ 發布新消息</button>
                             </div>
                             <div style="margin-top: 25px; background: #f8f9fa; padding: 20px; border-radius: 8px;">
                                 <table style="width: 100%; background: white; border-radius: 6px; overflow: hidden;">
@@ -476,9 +499,9 @@
                                             <td style="padding: 12px;">公司公告</td>
                                             <td style="padding: 12px;">2024-01-15</td>
                                             <td style="padding: 12px; text-align: center;">
-                                                <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                                <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                                <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
+                                                <button class="custom-btn custom-btn-info custom-btn-sm" style="margin-right: 5px;">查看</button>
+                                                <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                                <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                             </td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid #ecf0f1;">
@@ -486,9 +509,9 @@
                                             <td style="padding: 12px;">公司公告</td>
                                             <td style="padding: 12px;">2024-01-20</td>
                                             <td style="padding: 12px; text-align: center;">
-                                                <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                                <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                                <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
+                                                <button class="custom-btn custom-btn-info custom-btn-sm" style="margin-right: 5px;">查看</button>
+                                                <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                                <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -496,9 +519,9 @@
                                             <td style="padding: 12px;">活動訊息</td>
                                             <td style="padding: 12px;">2024-01-25</td>
                                             <td style="padding: 12px; text-align: center;">
-                                                <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                                <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                                <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
+                                                <button class="custom-btn custom-btn-info custom-btn-sm" style="margin-right: 5px;">查看</button>
+                                                <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                                <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -528,7 +551,7 @@
                                     <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">公司願景</label>
                                     <textarea rows="4" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical;">成為業界領先的科技創新企業...</textarea>
                                 </div>
-                                <button class="btn btn-primary">儲存變更</button>
+                                <button class="custom-btn custom-btn-primary">儲存變更</button>
                             </div>
                         </div>
                     `;
@@ -542,7 +565,7 @@
                             <h2>產品管理</h2>
                             <p>管理所有產品資訊，包括新增、編輯和刪除產品。</p>
                             <div style="margin-top: 20px;">
-                                <button class="btn btn-primary">+ 新增產品</button>
+                                <button class="custom-btn custom-btn-primary">+ 新增產品</button>
                             </div>
                             <div style="margin-top: 25px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
                                 <div style="background: white; border: 1px solid #ecf0f1; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -551,9 +574,9 @@
                                         <h3 style="color: #2c3e50; margin-bottom: 8px;">產品 A</h3>
                                         <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">這是產品 A 的簡短描述...</p>
                                         <div>
-                                            <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                            <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                            <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
+                                            <button class="custom-btn custom-btn-info custom-btn-sm" style="margin-right: 5px;">查看</button>
+                                            <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                            <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                         </div>
                                     </div>
                                 </div>
@@ -563,9 +586,9 @@
                                         <h3 style="color: #2c3e50; margin-bottom: 8px;">產品 B</h3>
                                         <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">這是產品 B 的簡短描述...</p>
                                         <div>
-                                            <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                            <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                            <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
+                                            <button class="custom-btn custom-btn-info custom-btn-sm" style="margin-right: 5px;">查看</button>
+                                            <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                            <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                         </div>
                                     </div>
                                 </div>
@@ -575,9 +598,9 @@
                                         <h3 style="color: #2c3e50; margin-bottom: 8px;">產品 C</h3>
                                         <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">這是產品 C 的簡短描述...</p>
                                         <div>
-                                            <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                            <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                            <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
+                                            <button class="custom-btn custom-btn-info custom-btn-sm" style="margin-right: 5px;">查看</button>
+                                            <button class="custom-btn custom-btn-warning custom-btn-sm" style="margin-right: 5px;">編輯</button>
+                                            <button class="custom-btn custom-btn-danger custom-btn-sm">刪除</button>
                                         </div>
                                     </div>
                                 </div>
@@ -592,5 +615,8 @@
             contentArea.innerHTML = content;
         }
     </script>
+    
+    <!-- Bootstrap 5.2.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

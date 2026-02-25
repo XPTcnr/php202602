@@ -288,7 +288,7 @@
         // 生成隨機驗證碼
         function generateCaptcha() {
             const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-            let c = '';
+            let captcha = '';
             for (let i = 0; i < 4; i++) {
                 captcha += chars.charAt(Math.floor(Math.random() * chars.length));
             }
@@ -346,7 +346,7 @@
                 document.getElementById('loginForm').submit();
             }
 
-            //return false; // 防止表單實際提交
+            return false; // 防止表單實際提交
         }
 
         // 輸入時清除錯誤提示

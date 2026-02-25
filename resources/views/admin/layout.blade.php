@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>後台管理系統</title>
-
-    <link rel="stylesheet" href="/css/bootstrap5.2.3.min.css">
+    <link href="/css/bootstrap5.2.3.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.20/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.20/dist/sweetalert2.min.css" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -120,17 +120,18 @@
         }
 
         .submenu .menu-link {
-            /* padding-left: 55px; */
+            /*padding-left: 55px;*/
             font-size: 14px;
         }
 
-        /* .submenu .menu-link:hover {
+        /*
+        .submenu .menu-link:hover {
             padding-left: 51px;
         }
 
         .submenu .menu-link.active {
             padding-left: 51px;
-        } */
+        }*/
 
         /* 右側內容區域 */
         .main-content {
@@ -286,15 +287,38 @@
             background: #95a5a6;
         }
     </style>
-</head>
-<body>
-    <div class="container2">
-        @if(Session::has("message"))
-            <script>
-                Swal.fire("{{ Session::get('message') }}");
-            </script>
-        @endif
+    <script>
+        $(function() {
+            // 全選的checkbox的狀態有變更時(未選取-->選取, 選取-->未選取)
+            $("#all").on("change", function() {
+                // child:子項目 prop:屬性 checked:選取
+                $(".child").prop("checked", $(this).prop("checked"));
+            });
+        });
 
+        function deleteAll(form) {
+            Swal.fire({
+                title: "確定刪除?",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "確定",
+                denyButtonText: "放棄"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.forms[form].submit();
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    @if(Session::has("message"))
+    <script>
+        Swal.fire("{{ Session::get('message') }}");
+    </script>
+    @endif
+    <div class="container2">
         <!-- 左側選單 -->
         @include("admin.menu")
 
@@ -325,210 +349,13 @@
         function toggleSubmenu(element) {
             const submenu = element.nextElementSibling;
             const expandIcon = element.querySelector('.expand-icon');
-            
+
             if (submenu && submenu.classList.contains('submenu')) {
                 submenu.classList.toggle('show');
                 expandIcon.classList.toggle('expanded');
             }
         }
-
-        // 載入內容
-        function loadContent(type, element) {
-            // 移除所有 active 狀態
-            document.querySelectorAll('.menu-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // 設定當前選項為 active
-            element.classList.add('active');
-            
-            const contentArea = document.getElementById('content-area');
-            const pageTitle = document.getElementById('page-title');
-            const breadcrumb = document.getElementById('breadcrumb');
-            
-            let content = '';
-            let title = '';
-            let bread = '';
-            
-            switch(type) {
-                case 'news-category':
-                    title = '最新消息類別管理';
-                    bread = '首頁 > 最新消息 > 類別管理';
-                    content = `
-                        <div class="content-card">
-                            <h2>最新消息類別管理</h2>
-                            <p>在這裡您可以管理所有最新消息的類別，包括新增、編輯和刪除類別。</p>
-                            <div style="margin-top: 20px;">
-                                <button class="btn btn-primary">+ 新增類別</button>
-                            </div>
-                            <div style="margin-top: 25px; background: #f8f9fa; padding: 20px; border-radius: 8px;">
-                                <div style="display: flex; justify-content: space-between; padding: 12px; background: white; margin-bottom: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                                    <span><strong>公司公告</strong></span>
-                                    <div>
-                                        <button class="btn" style="background: #f39c12; color: white; margin-right: 5px;">編輯</button>
-                                        <button class="btn" style="background: #e74c3c; color: white;">刪除</button>
-                                    </div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; padding: 12px; background: white; margin-bottom: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                                    <span><strong>活動訊息</strong></span>
-                                    <div>
-                                        <button class="btn" style="background: #f39c12; color: white; margin-right: 5px;">編輯</button>
-                                        <button class="btn" style="background: #e74c3c; color: white;">刪除</button>
-                                    </div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; padding: 12px; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                                    <span><strong>產業新聞</strong></span>
-                                    <div>
-                                        <button class="btn" style="background: #f39c12; color: white; margin-right: 5px;">編輯</button>
-                                        <button class="btn" style="background: #e74c3c; color: white;">刪除</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'news-management':
-                    title = '最新消息管理';
-                    bread = '首頁 > 最新消息 > 消息管理';
-                    content = `
-                        <div class="content-card">
-                            <h2>最新消息管理</h2>
-                            <p>管理所有最新消息內容，包括發布、編輯和刪除消息。</p>
-                            <div style="margin-top: 20px;">
-                                <button class="btn btn-primary">+ 發布新消息</button>
-                            </div>
-                            <div style="margin-top: 25px; background: #f8f9fa; padding: 20px; border-radius: 8px;">
-                                <table style="width: 100%; background: white; border-radius: 6px; overflow: hidden;">
-                                    <thead>
-                                        <tr style="background: #34495e; color: white;">
-                                            <th style="padding: 12px; text-align: left;">標題</th>
-                                            <th style="padding: 12px; text-align: left;">類別</th>
-                                            <th style="padding: 12px; text-align: left;">發布日期</th>
-                                            <th style="padding: 12px; text-align: center;">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="border-bottom: 1px solid #ecf0f1;">
-                                            <td style="padding: 12px;">2024年度公司尾牙活動通知</td>
-                                            <td style="padding: 12px;">公司公告</td>
-                                            <td style="padding: 12px;">2024-01-15</td>
-                                            <td style="padding: 12px; text-align: center;">
-                                                <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                                <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                                <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr style="border-bottom: 1px solid #ecf0f1;">
-                                            <td style="padding: 12px;">春節假期公告</td>
-                                            <td style="padding: 12px;">公司公告</td>
-                                            <td style="padding: 12px;">2024-01-20</td>
-                                            <td style="padding: 12px; text-align: center;">
-                                                <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                                <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                                <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 12px;">新產品發布會</td>
-                                            <td style="padding: 12px;">活動訊息</td>
-                                            <td style="padding: 12px;">2024-01-25</td>
-                                            <td style="padding: 12px; text-align: center;">
-                                                <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                                <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                                <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'about':
-                    title = '關於我們';
-                    bread = '首頁 > 關於我們';
-                    content = `
-                        <div class="content-card">
-                            <h2>關於我們頁面管理</h2>
-                            <p>編輯和管理公司的「關於我們」頁面內容。</p>
-                            <div style="margin-top: 25px;">
-                                <div style="margin-bottom: 20px;">
-                                    <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">公司名稱</label>
-                                    <input type="text" value="範例科技股份有限公司" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;">
-                                </div>
-                                <div style="margin-bottom: 20px;">
-                                    <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">公司簡介</label>
-                                    <textarea rows="6" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical;">我們是一家專注於創新科技的公司，致力於為客戶提供最優質的產品和服務...</textarea>
-                                </div>
-                                <div style="margin-bottom: 20px;">
-                                    <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600;">公司願景</label>
-                                    <textarea rows="4" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical;">成為業界領先的科技創新企業...</textarea>
-                                </div>
-                                <button class="btn btn-primary">儲存變更</button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'products':
-                    title = '產品介紹';
-                    bread = '首頁 > 產品介紹';
-                    content = `
-                        <div class="content-card">
-                            <h2>產品管理</h2>
-                            <p>管理所有產品資訊，包括新增、編輯和刪除產品。</p>
-                            <div style="margin-top: 20px;">
-                                <button class="btn btn-primary">+ 新增產品</button>
-                            </div>
-                            <div style="margin-top: 25px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
-                                <div style="background: white; border: 1px solid #ecf0f1; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <div style="height: 180px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-                                    <div style="padding: 15px;">
-                                        <h3 style="color: #2c3e50; margin-bottom: 8px;">產品 A</h3>
-                                        <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">這是產品 A 的簡短描述...</p>
-                                        <div>
-                                            <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                            <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                            <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="background: white; border: 1px solid #ecf0f1; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <div style="height: 180px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
-                                    <div style="padding: 15px;">
-                                        <h3 style="color: #2c3e50; margin-bottom: 8px;">產品 B</h3>
-                                        <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">這是產品 B 的簡短描述...</p>
-                                        <div>
-                                            <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                            <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                            <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="background: white; border: 1px solid #ecf0f1; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <div style="height: 180px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-                                    <div style="padding: 15px;">
-                                        <h3 style="color: #2c3e50; margin-bottom: 8px;">產品 C</h3>
-                                        <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">這是產品 C 的簡短描述...</p>
-                                        <div>
-                                            <button class="btn" style="background: #3498db; color: white; padding: 6px 12px; margin-right: 5px;">查看</button>
-                                            <button class="btn" style="background: #f39c12; color: white; padding: 6px 12px; margin-right: 5px;">編輯</button>
-                                            <button class="btn" style="background: #e74c3c; color: white; padding: 6px 12px;">刪除</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    break;
-            }
-            
-            pageTitle.textContent = title;
-            breadcrumb.textContent = bread;
-            contentArea.innerHTML = content;
-        }
     </script>
 </body>
+
 </html>

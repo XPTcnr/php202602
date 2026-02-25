@@ -13,7 +13,7 @@
                 </a>
                 <ul class="submenu">
                     <li class="menu-item">
-                        <a class="menu-link" onclick="loadContent('news-category', this)">
+                        <a class="menu-link" href="/admin/news/type/list">
                             <span class="menu-icon">📂</span>
                             <span>最新消息類別管理</span>
                         </a>
@@ -29,7 +29,7 @@
 
             <!-- 關於我們 -->
             <li class="menu-item">
-                <a class="menu-link" href="/admin/news/type/list">
+                <a class="menu-link" onclick="loadContent('about', this)">
                     <span class="menu-icon">ℹ️</span>
                     <span>關於我們</span>
                 </a>

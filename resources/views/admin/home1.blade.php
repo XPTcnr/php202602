@@ -1,9 +1,8 @@
 @extends("admin.layout")
 @section("title", "後台首頁")
 @section("content")
-
 <div class="content-card">
-    <h2>系統概覽HOME1</h2>
+    <h2>系統概覽</h2>
     <p>歡迎使用後台管理系統！請從左側選單選擇要管理的項目。</p>
 
     <div class="stats-grid">
@@ -30,5 +29,4 @@
         <button class="btn btn-primary" style="margin-left: 10px;">新增產品</button>
     </div>
 </div>
-
 @endsection

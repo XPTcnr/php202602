@@ -8,13 +8,13 @@ class Manager extends Model
 {
     public $timestamps = false;
     protected $table = "manager";
-    protected $primaryKey = "userId";
+    protected $primaryKey = 'userId';
     protected $fillable = ["userId", "pwd"];
 
     public function getManager($userId, $pwd)
     {
         // SELECT * FROM manager WHERE userId = $userId AND pwd = $pwd LIMIT 1;
-        // first()：取第一筆
+        // first():取第一筆
         // self::manager這個資料表
         /*
             第二種方式
@@ -22,7 +22,7 @@ class Manager extends Model
 
             第三種方式
             DB::table("manager")->where("userId", $userId)->where("pwd", $pwd)->first();
-        */
+        */  
         $manager = self::where("userId", $userId)->where("pwd", $pwd)->first();
         return $manager;
     }
