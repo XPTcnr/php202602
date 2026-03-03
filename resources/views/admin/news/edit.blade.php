@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <form name="list" id="list" method="post" action="../add" enctype="multipart/form-data">
+        <form name="list" id="list" method="post" action="../edit" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{ $news->id }}">
             <table class="table table-order border border-dark">

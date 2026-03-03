@@ -22,7 +22,7 @@ Route::group(["middleware" => "manager", "prefix" => "admin/news"], function () 
     Route::get("edit/{id}", [AdminNewsController::class, "edit"]);
     Route::post("edit", [AdminNewsController::class, "update"]);
     Route::post("delete", [AdminNewsController::class, "delete"]);
-    Route::post("export", [AdminNewsController::class, "export"]);
+    Route::get("export", [AdminNewsController::class, "export"]);
 
     Route::group(["prefix" => "type"], function () {
         Route::get("list", [NewsTypeController::class, "list"]);

@@ -34,13 +34,11 @@ class AdminNewsController extends Controller
             7 = 4+2+1 (4:讀  2:寫  1:執行)
         */
         // 在public資料夾下, 若images資料夾不存在,則建立images資料夾
-        if (!file_exists("images"))
-        {
+        if (!file_exists("images")) {
             mkdir("images", 0777);
         }
         // 在public/images資料夾下, 若news資料夾不存在,則建立news資料夾
-        if (!file_exists("images/news"))
-        {
+        if (!file_exists("images/news")) {
             mkdir("images/news", 0777);
         }
 
@@ -53,8 +51,7 @@ class AdminNewsController extends Controller
         // 內容
         $content = $req->content;
         // 如果有輸入內容
-        if (!empty($content))
-        {
+        if (!empty($content)) {
             //將html的換行(\n), 轉為網頁的換行(<br/>)
             $content = str_replace("\n", "<br/>", $content);
         }
@@ -81,9 +78,8 @@ class AdminNewsController extends Controller
     {
         $content = $req->content;
         // 如果有輸入內容
-        if (!empty($content))
-        {
-            // 將html的換行(\n), 轉為網頁的換行(<br/>)
+        if (!empty($content)) {
+            //將html的換行(\n), 轉為網頁的換行(<br/>)
             $content = str_replace("\n", "<br/>", $content);
         }
 
@@ -96,22 +92,21 @@ class AdminNewsController extends Controller
 
         // 如果有上傳圖
         if (!empty($photo)) {
-            $fileName = time(). "." . $photo->extension();
+            $fileName = time() . "." . $photo->extension();
             $photo->move("images/news", $fileName);
             // 原有的圖檔
             $file = $news->photo;
-            // 從資料夾中將原有的圖檔刪除
+            // 從資料夾中將原有圖檔刪除
             unlink("images/news/" . $file);
 
-            // 更新維新上傳的檔名
-            $news->photo = $fileName;            
+            // 更新為新上傳的檔名
+            $news->photo = $fileName;
         }
-
-        //$news->save; 用update()及save()均可
+        //$news->save();// 用update()及save() 均可
         $news->update();
 
         Session::flash("message", "已修改");
-        return redirect("admin/news/list");
+        return redirect("/admin/news/list");
     }
 
     public function export()
@@ -129,10 +124,10 @@ class AdminNewsController extends Controller
                 $news = News::find($id);
                 unlink("images/news/" . $news->photo);
                 $news->delete();
-            }            
+            }
         }
 
-        Session::flsah("message", "已刪除");
+        Session::flash("message", "已刪除");
         return redirect("/admin/news/list");
     }
 }
