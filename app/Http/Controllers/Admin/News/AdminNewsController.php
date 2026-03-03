@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\News;
 
+use App\Exports\NewsExport;
 use App\Http\Controllers\Controller;
 use App\Models\News\News;
 use App\Models\News\NewsType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminNewsController extends Controller
 {
@@ -73,5 +75,64 @@ class AdminNewsController extends Controller
         $news = News::find($req->id);
         $list = NewsType::get();
         return view("admin.news.edit", compact("news", "list"));
+    }
+
+    public function update(Request $req)
+    {
+        $content = $req->content;
+        // 如果有輸入內容
+        if (!empty($content))
+        {
+            // 將html的換行(\n), 轉為網頁的換行(<br/>)
+            $content = str_replace("\n", "<br/>", $content);
+        }
+
+        $photo = $req->photo;
+
+        $news = News::find($req->id);
+        $news->title = $req->title;
+        $news->typeId = $req->typeId;
+        $news->content = $content;
+
+        // 如果有上傳圖
+        if (!empty($photo)) {
+            $fileName = time(). "." . $photo->extension();
+            $photo->move("images/news", $fileName);
+            // 原有的圖檔
+            $file = $news->photo;
+            // 從資料夾中將原有的圖檔刪除
+            unlink("images/news/" . $file);
+
+            // 更新維新上傳的檔名
+            $news->photo = $fileName;            
+        }
+
+        //$news->save; 用update()及save()均可
+        $news->update();
+
+        Session::flash("message", "已修改");
+        return redirect("admin/news/list");
+    }
+
+    public function export()
+    {
+        return Excel::download(new NewsExport, "最新消息.xlsx");
+    }
+
+    public function delete(Request $req)
+    {
+        $ids = $req->id;
+        if (!empty($ids))
+        {
+            foreach($ids as $id)
+            {
+                $news = News::find($id);
+                unlink("images/news/" . $news->photo);
+                $news->delete();
+            }            
+        }
+
+        Session::flsah("message", "已刪除");
+        return redirect("/admin/news/list");
     }
 }

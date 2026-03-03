@@ -12,6 +12,9 @@
                     <div class="col-2">
                         <a class="btn btn-danger" href="javascript:deleteAll('list')">刪除</a>
                     </div>
+                    <div class="col-2">
+                        <a class="btn btn-warning" href="export">匯出</a>
+                    </div>
                 </div>
             </div>
         </div>
