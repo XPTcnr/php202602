@@ -52,6 +52,7 @@
                 </tr>
                 @endforeach
             </table>
+            {{ $list->links() }}
         </form>
     </div>
 </div>

@@ -23,7 +23,25 @@ class News extends Model
             ->join("news_type AS b", "a.typeId", "b.id")
             //->orderby("a.typeId", "ASC") // ASC:如果沒有註明ASC, 則預設為ASC, 從小到大排序; DESC: 從大到小排序
             ->orderby("a.createTime", "DESC")
-            ->get();
+            ->paginate(10);
+
+        return $list;
+    }
+
+    // 前台使用
+    public function frontList($typeId)
+    {
+        $sql = DB::table("$this->table AS a")
+            ->selectRaw("a.*, b.typeName")
+            ->join("news_type AS b", "a.typeId", "b.id");
+
+        // 如果有選類別
+        if (!empty($typeId))
+        {
+            $sql->where("a.typeId", $typeId);
+        }
+
+        $list = $sql->orderby("a.createTime", "DESC")->get();
 
         return $list;
     }
