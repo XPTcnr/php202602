@@ -1,8 +1,8 @@
 <nav id="navbar">
   <a class="logo" href="#" onclick="navigate('home')">品<span>牌</span>閣</a>
   <ul class="nav-links">
-    <li><a href="#" onclick="navigate('about')">關於我們</a></li>
-    <li><a href="#" onclick="navigate('news')">最新消息</a></li>
+    <li><a href="/about"{!! Request::is("about") ? " class='active'" : "" !!}>關於我們</a></li>
+    <li><a href="/news"{!! Request::is("news") ? " class='active'" : "" !!}>最新消息</a></li>
     <li>
       <button onclick="toggleDropdown(this)">產品介紹 ▾</button>
       <div class="dropdown-menu" id="prod-dropdown">
@@ -37,8 +37,8 @@
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#" onclick="navigate('about');closeMobile()">關於我們</a>
-  <a href="#" onclick="navigate('news');closeMobile()">最新消息</a>
+  <a href="/about" onclick="closeMobile()">關於我們</a>
+  <a href="/news" onclick="closeMobile()">最新消息</a>
   <button onclick="document.getElementById('mobile-sub').classList.toggle('open')">產品介紹 ▾</button>
   <div class="mobile-sub" id="mobile-sub">
     <a href="#" onclick="navigate('products','all');closeMobile()">全部產品</a>

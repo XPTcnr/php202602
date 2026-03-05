@@ -29,10 +29,19 @@
 
             <!-- 關於我們 -->
             <li class="menu-item">
-                <a class="menu-link" onclick="loadContent('about', this)">
+                <a class="menu-link" onclick="toggleSubmenu(this)">
                     <span class="menu-icon">ℹ️</span>
                     <span>關於我們</span>
+                    <span class="expand-icon">▶</span>
                 </a>
+                <ul class="submenu">
+                    <li class="menu-item">
+                        <a class="menu-link" href="/admin/about/event/list">
+                            <span class="menu-icon">📂</span>
+                            <span>記事管理</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <!-- 產品介紹 -->

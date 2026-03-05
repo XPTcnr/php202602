@@ -12,6 +12,11 @@ class News extends Model
     protected $primaryKey = "id";
     protected $fillable = ["id", "typeId", "title", "content", "photo", "createTime"];
 
+    public function types()
+    {
+        return $this->belongsTo(NewsType::class, "typeId", "id");
+    }
+
     public function getList()
     {
         // $this->table : news資料表
