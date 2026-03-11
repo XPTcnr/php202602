@@ -29,7 +29,8 @@
                     <td class="col-2 text-center border border-dark">標題</td>
                     <td class="col-3 text-center border border-dark">內容</td>
                     <td class="col-2 text-center border border-dark">圖檔</td>
-                    <td class="col-2 text-center border border-dark">建立時間</td>
+                    <td class="col-1 text-center border border-dark">建立時間</td>
+                    <td class="col-1 text-center border border-dark">Qrcode</td>
                     <td class="col-1 text-center border border-dark">修改</td>
                 </tr>
                 @foreach($list as $data)
@@ -48,6 +49,9 @@
                         @endif
                     </td>
                     <td class="text-center border border-dark align-middle">{{ $data->createTime }}</td>
+                    <td class="text-center border border-dark align-middle">
+                        {!! QrCode::size(100)->backgroundcolor(0, 0, 255)->color(255, 0, 0)->generate('http://' . $_SERVER["SERVER_NAME"] .'/news/detail/' . $data->id) !!}
+                    </td>
                     <td class="text-center border border-dark align-middle"><a href="edit/{{ $data->id }}" class="btn btn-success">修改</a></td>
                 </tr>
                 @endforeach

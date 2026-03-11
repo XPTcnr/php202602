@@ -35,7 +35,7 @@ class AboutEventController extends Controller
 
     public function edit(Request $req)
     {
-        $evnet = AboutEvent::find($req->id);
+        $event = AboutEvent::find($req->id);
         return view("admin.about.event.edit", compact("event"));
     }
 
